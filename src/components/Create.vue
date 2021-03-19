@@ -92,7 +92,7 @@ export default {
                 }
                 console.log(this.currency)
                 axios
-                    .post('http://127.0.0.1:8000/api/subscriptions/',
+                    .post(process.env.VUE_APP_API+'subscriptions/',
                         this.subscription
                     )
                     .then(response => {

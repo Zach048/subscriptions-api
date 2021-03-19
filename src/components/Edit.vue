@@ -82,7 +82,7 @@ export default {
         }
     },
     mounted() {
-        axios.get('http://127.0.0.1:8000/api/subscriptions/' + this.$route.params.id)
+        axios.get(process.env.VUE_APP_API+'subscriptions/' + this.$route.params.id)
             .then( response => {
                 console.log(response.data)
                 this.subscription = response.data
@@ -96,7 +96,7 @@ export default {
                     return;
                 }
                 axios
-                    .put(`http://127.0.0.1:8000/api/subscriptions/${this.subscription.id}/`,
+                    .put(process.env.VUE_APP_API+'subscriptions/'+this.subscription.id,
                         this.subscription
                     )
                     .then(response => {
