@@ -1,69 +1,88 @@
 <template>
     <div class="pt-5">
-        <form @submit.prevent="create" method="post">
-            <div class="form-group">
-                <label for="name">Name</label>
-                <input
+        <validation-observer ref="observer" v-slot="{ handleSubmit }">
+        <b-form @submit.prevent="handleSubmit(create)" method="post">
+        <validation-provider
+          name="name"
+          :rules="{ required: true }"
+          v-slot="validationContext"
+        >
+                      <b-form-group label="Name" label-for="name">
+
+                <b-form-input
                     type="text"
                     class="form-control"
                     id="name"
                     v-model="subscription.name"
-                    v-validate="'required'"
                     name="name"
                     placeholder="Enter name"
-                    :class="{'is-invalid': errors.has('subscription.name') && submitted}">
-                <div class="invalid-feedback">
-                    Please provide a valid name.
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="currency">Currency</label>
-                <select
+                    :state="getValidationState(validationContext)"></b-form-input>
+                <b-form-invalid-feedback>
+                    {{ validationContext.errors[0] }}
+                </b-form-invalid-feedback>
+            </b-form-group>
+            </validation-provider>
+            <validation-provider
+          name="currency"
+          :rules="{ required: true }"
+          v-slot="validationContext"
+        >
+            <b-form-group label="Currency" label-for="currency">
+                <b-form-select
                     name="currency"
                     class="form-control"
-                    v-validate="'required'"
                     id="currency"
                     v-model="subscription.currency"
-                    :class="{'is-invalid': errors.has('subscription.currency') && submitted}">
+                    :state="getValidationState(validationContext)">
                     <option value="EUR">EUR</option>
                     <option value="USD">USD</option>
-                </select>
-                <div class="invalid-feedback">
-                    Please provide a valid currency.
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="amount">Amount</label>
-                <input
+                </b-form-select>
+                <b-form-invalid-feedback>
+                    {{ validationContext.errors[0] }}
+                </b-form-invalid-feedback>
+            </b-form-group>
+            </validation-provider>
+              <validation-provider
+          name="amount"
+          :rules="{ required: true, numeric: true }"
+          v-slot="validationContext"
+        >
+            <b-form-group label="Amount" label-for="amount">
+                <b-form-input
                     type="number"
                     name="amount"
-                    v-validate="'required'"
                     class="form-control"
                     id="amount"
                     v-model="subscription.amount"
                     placeholder="Enter amount"
-                    :class="{'is-invalid': errors.has('subscription.amount') && submitted}">
-                <div class="invalid-feedback">
-                    Please provide a valid amount.
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="description">Description</label>
-                <textarea
+                    :state="getValidationState(validationContext)"></b-form-input>
+                <b-form-invalid-feedback>
+                    {{ validationContext.errors[0] }}
+                </b-form-invalid-feedback>
+            </b-form-group>
+            </validation-provider>
+             <validation-provider
+          name="description"
+          :rules="{ required: true }"
+          v-slot="validationContext"
+        >
+            <b-form-group label="Description" label-for="description">
+                <b-form-textarea
                     name="description"
                     class="form-control"
                     id="description"
-                    v-validate="'required'"
                     v-model="subscription.description"
                     cols="30"
                     rows="2"
-                    :class="{'is-invalid': errors.has('subscription.description') && submitted}"></textarea>
-                <div class="invalid-feedback">
-                    Please provide a valid description.
-                </div>
-            </div>
+                    :state="getValidationState(validationContext)"></b-form-textarea>
+                <b-form-invalid-feedback>
+                    {{ validationContext.errors[0] }}
+                </b-form-invalid-feedback>
+            </b-form-group>
+            </validation-provider>
             <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
+        </b-form>
+            </validation-observer>
     </div>
 </template>
 
@@ -84,21 +103,20 @@ export default {
         }
     },
     methods: {
-        create: function (e) {
-            this.$validator.validate().then(result => {
+        getValidationState({ dirty, validated, valid = null }) {
+      return dirty || validated ? valid : null;
+    },
+        create() {
+            
                 this.submitted = true;
-                if (!result) {
-                    return;
-                }
                 console.log(this.currency)
-                axios
+                this.$api
                     .post(process.env.VUE_APP_API+'subscriptions/',
                         this.subscription
                     )
                     .then(response => {
-                        this.$router.push('/');
+                        this.$router.push('/index');
                     })
-            });
         }
     },
 }

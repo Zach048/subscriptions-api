@@ -1,4 +1,8 @@
 <template>
+    <div class="container">
+      <div class="col-md-8">
+        <router-link to="/create" class="btn btn-sm btn-primary">Add subscription</router-link>
+      </div>
     <div class="pt-5">
         <div v-if="subscriptions && subscriptions.length">
             <div class="card mb-3" v-for="subscription of subscriptions" v-bind:key="subscription.id">
@@ -19,6 +23,7 @@
         </div>
         <p  v-if="subscriptions.length == 0">No subscriptions</p>
     </div>
+    </div>
 </template>
 <script>
 
@@ -36,14 +41,14 @@ export default {
     methods: {
         deleteSubscription: function(subscr) {
             if (confirm('Delete ' + subscr.name)) {
-                axios.delete(process.env.VUE_APP_API+'subscriptions/'+subscr.id)
+                this.$api.delete(process.env.VUE_APP_API+'subscriptions/'+subscr.id+'/')
                     .then( response => {
                         this.all();
                     });
             }
         },
         all: function () {
-            axios.get(process.env.VUE_APP_API+'subscriptions/')
+           this.$api.get(process.env.VUE_APP_API+'subscriptions/')
                 .then( response => {
                     this.subscriptions = response.data
                 });
