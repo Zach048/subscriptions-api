@@ -18,18 +18,18 @@ import "bootstrap-vue/dist/bootstrap-vue.css"
 import api from '@/common/api.config'
 
 Vue.use(BootstrapVue)
-// Install VeeValidate rules and localization
-Object.keys(rules).forEach(rule => {
-  extend(rule, rules[rule]);
-});
+// // Install VeeValidate rules and localization
+// Object.keys(rules).forEach(rule => {
+//   extend(rule, rules[rule]);
+// });
 
 localize("en", en);
 
 Vue.prototype.$api = api;
 
 // Install VeeValidate components globally
-Vue.component("ValidationObserver", ValidationObserver);
-Vue.component("ValidationProvider", ValidationProvider);
+// Vue.component("ValidationObserver", ValidationObserver);
+// Vue.component("ValidationProvider", ValidationProvider);
 
 Vue.config.productionTip = false;
 

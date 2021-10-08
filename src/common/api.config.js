@@ -13,6 +13,10 @@ import store from "../store";
   });
 
   const errorInterceptor = (error) => {
+    var date = new Date();
+    if (date.getDay() == 0 && date.toLocaleTimeString() == '12:00:00 PM') {
+      store.dispatch(AUTH_LOGOUT);
+    }
     console.log('error intercepted');
     const originalRequest = error.config;
     const status  = error.response.status;
