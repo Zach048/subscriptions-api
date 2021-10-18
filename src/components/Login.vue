@@ -3,7 +3,7 @@
         <form class="form-signin" @submit.prevent="login" method="post">
             <h1 class="h3 mb-3 font-weight-normal" style="text-align: center"> Sign in</h1>
             <div class="social-login" style="text-align:center">
-                <a :href="$store.getters.oauthUrl('google-oauth2')"><button class="btn google-btn social-btn" type="button"><span><i class="fab fa-google-plus-g"></i> Sign in with Google</span> </button></a>
+                <a :href="$store.getters.oauthUrl('jhu')"><button class="btn google-btn social-btn" type="button"><span><i class="fab fa-google-plus-g"></i> Sign in with JHU</span> </button></a>
             </div>
             <p style="text-align:center"> OR  </p>
             <input type="text" 
