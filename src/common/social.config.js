@@ -7,7 +7,7 @@ const oauth = {
       client_id: 'beta.govex.works/auth/oidc',
       response_type: "code",
       scope: "openid email profile",
-      redirect_uri: 'https://beta.govex.works/auth/oidc/callback',
+      redirect_uri: 'https://subscriptions-vue.herokuapp.com/auth/oidc/callback',
     },
   }
 };

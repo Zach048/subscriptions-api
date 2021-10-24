@@ -13,7 +13,7 @@ export default {
       const vm = this;
       const provider = this.$route.params.provider;
       axios
-        .post(process.env.VUE_APP_API+'auth/', { code: this.$route.query.code })
+        .post('https://beta.govex.works/auth/oidc', { code: this.$route.query.code })
         .then((resp) => {
           console.log(resp);
           vm.$store.commit("SET_AUTH", resp);

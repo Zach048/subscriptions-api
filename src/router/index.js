@@ -13,7 +13,7 @@ const routes = [
     component: () => import("../components/Login.vue")
   },
   {
-    path: "/auth/:provider/callback",
+    path: "/auth/oidc/callback",
     name: "callback",
     component: () => import("../components/Callback.vue")
   },
