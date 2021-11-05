@@ -74,6 +74,8 @@ const mutations = {
     JwtService.saveRefreshToken(payload.data.refresh);
     console.log('mutate access: ' + JwtService.getAccessToken());
     console.log('mutate refresh: ' + JwtService.getRefreshToken());
+    console.log(state.user);
+    console.log(JSON.parse(atob(payload.data.access.split('.')[1]))['user_id']);
   },
   [AUTH_ERROR]: (state, err) => {
     state.errors = err;
