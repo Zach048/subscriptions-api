@@ -6,7 +6,7 @@ const oauth = {
     params: {
       client_id: 'beta.govex.works/auth/oidc',
       response_type: "code",
-      scope: "openid profile",
+      scope: "openid profile email address phone offline_access",
       redirect_uri: 'https://subscriptions-vue.herokuapp.com/auth/oidc/callback',
     },
   }
