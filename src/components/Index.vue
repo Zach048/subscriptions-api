@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="pt-5">
-           {{profile}} 
+           {{getProfile.username}} 
         </div>
     </div>
 </template>
@@ -9,6 +9,7 @@
 
 import axios from 'axios';
 import store from '../store';
+import { mapGetters } from "vuex";
 
 export default {
     data() {
@@ -36,9 +37,7 @@ export default {
         }
     },
     computed: {
-    profile() {
-      return this.$store.state.profile.username;
-    },
+      ...mapGetters(["getProfile"])
   },
 }
 </script>

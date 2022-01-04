@@ -14,7 +14,6 @@ const state = {
 
 const getters = {
   getProfile: (s) => s.profile,
-  isProfileLoaded: (s) => !!s.profile.name,
 };
 
 const actions = {
@@ -37,7 +36,7 @@ const actions = {
 
 const mutations = {
   [USER_SUCCESS]: (s, resp) => {
-    s.profile = resp;
+    s.profile = resp.data;
   },
   [USER_ERROR]: (s) => {
     s.error = "error";
