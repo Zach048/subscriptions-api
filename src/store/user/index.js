@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-
 export const USER_REQUEST = "USER_REQUEST";
 export const USER_SUCCESS = "USER_SUCCESS";
 export const USER_ERROR = "USER_ERROR";
@@ -7,15 +5,10 @@ export const USER_ERROR = "USER_ERROR";
 import Vue from "vue";
 import { AUTH_LOGOUT } from "../auth";
 import axios from 'axios';
-// import VueCookies from 'vue-cookies';
-// Vue.use(VueCookies)
-// axios.defaults.headers.common['X-CSRFTOKEN'] = Vue.$cookies.get('csrftoken')
-// axios.defaults.withCredentials = true
-axios.defaults.headers.common = {'Authorization': 'Bearer' + localStorage.getItem('token')}
 
 
 const state = {
-  status: "",
+  errors: null,
   profile: {},
 };
 
@@ -43,19 +36,15 @@ const actions = {
 };
 
 const mutations = {
-  [USER_REQUEST]: (s) => {
-    s.status = "loading";
-  },
   [USER_SUCCESS]: (s, resp) => {
-    // s.status = "success";
-    Vue.set(state, "profile", resp);
+    s.profile = resp;
   },
   [USER_ERROR]: (s) => {
-    s.status = "error";
+    s.error = "error";
   },
   [AUTH_LOGOUT]: (s) => {
     s.profile = {};
-    s.status = "";
+    s.error = null;
   },
 };
 

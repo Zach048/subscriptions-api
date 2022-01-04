@@ -31,7 +31,7 @@ const actions = {
       axios
         .post(process.env.VUE_APP_API+"token/", user)
         .then((resp) => {
-          // dispatch(USER_REQUEST);
+          dispatch(USER_REQUEST);
           console.log(resp);
           commit(SET_AUTH, resp);
           resolve(resp);
@@ -84,6 +84,8 @@ const mutations = {
     JwtService.destroyAccessToken();
     JwtService.destroyRefreshToken();    
     state.isAuthenticated = false;
+    state.user = null;
+    state.errors = null;
   },
 };
 
