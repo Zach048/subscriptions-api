@@ -37,7 +37,7 @@ export default {
     },
     computed: {
     profile() {
-      return this.$store.state.profile;
+      return this.$store.state.profile.username;
     },
   },
 }
