@@ -32,6 +32,7 @@ const actions = {
         .post(process.env.VUE_APP_API+"token/", user)
         .then((resp) => {
           dispatch(USER_REQUEST);
+          console.log('user request dispatched')
           console.log(resp);
           commit(SET_AUTH, resp);
           resolve(resp);
