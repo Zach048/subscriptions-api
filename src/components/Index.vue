@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="pt-5">
-            
+           {{profile}} 
         </div>
     </div>
 </template>
@@ -37,7 +37,7 @@ export default {
     },
     computed: {
     profile() {
-      return store.state.profile;
+      return store.user.state.profile;
     },
   },
 }
