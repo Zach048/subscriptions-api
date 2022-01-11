@@ -27,6 +27,7 @@ const actions = {
         });
       })
       .catch((err) => {
+        console.log(err);
         commit(USER_ERROR);
         dispatch(AUTH_LOGOUT);
       });
