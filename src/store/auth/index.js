@@ -67,7 +67,7 @@ const actions = {
 };
 
 const mutations = {
-  [SET_AUTH]: (state, payload) => {
+  [SET_AUTH]: (state, payload, dispatch) => {
     state.isAuthenticated = true;
     state.user = JSON.parse(atob(payload.data.access.split('.')[1]))['user_id'];
     state.errors = {};
@@ -75,6 +75,7 @@ const mutations = {
     JwtService.saveRefreshToken(payload.data.refresh);
     console.log(state.user);
     console.log(JSON.parse(atob(payload.data.access.split('.')[1]))['user_id']);
+    dispatch(USER_REQUEST);
   },
   [AUTH_ERROR]: (state, err) => {
     state.errors = err;

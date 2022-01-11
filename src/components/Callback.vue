@@ -15,7 +15,6 @@ export default {
         .then((resp) => {
           console.log(resp);
           vm.$store.commit("SET_AUTH", resp);
-          vm.$store.dispatch("USER_REQUEST");
           vm.$router.push("/index");
         });
     },
