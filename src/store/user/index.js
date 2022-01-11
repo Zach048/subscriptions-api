@@ -18,8 +18,7 @@ const getters = {
 
 const actions = {
   [USER_REQUEST]: ({ dispatch, commit }) => {
-    this.$api
-      .get(process.env.VUE_APP_API+"users/profile/")
+    this.$api.get(process.env.VUE_APP_API+"users/profile/")
       .then((resp) => {
         const profile = resp.data;
         console.log(profile);
