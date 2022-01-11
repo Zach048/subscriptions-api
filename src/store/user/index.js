@@ -18,7 +18,7 @@ const getters = {
 
 const actions = {
   [USER_REQUEST]: ({ dispatch, commit }) => {
-    axios
+    this.$api
       .get(process.env.VUE_APP_API+"users/profile/")
       .then((resp) => {
         const profile = resp.data;
