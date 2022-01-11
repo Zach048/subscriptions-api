@@ -17,10 +17,8 @@ import store from "../store";
     if (date.getDay() == 0 && date.toLocaleTimeString() == '12:00:00 PM') {
       store.dispatch(AUTH_LOGOUT);
     }
-    console.log('error intercepted');
     const originalRequest = error.config;
     const status  = error.response.status;
-    console.log('before 401: ' + JSON.stringify(error.config));
     if (status === 401) {
       return store.dispatch(AUTH_REFRESH).then(() => {
         const headerAuthorization = `Bearer ${JwtService.getAccessToken()}`;

@@ -9,14 +9,13 @@ export const AUTH_LOGIN = "AUTH_LOGIN";
 
 
 import axios from "axios";
-import Vue from "vue";
 import { USER_REQUEST } from "../user";
 import JwtService from "@/common/jwt.service";
 
 
 const state = {
   errors: null,
-  user: null,
+  userId: null,
   isAuthenticated: !!JwtService.getAccessToken()
 };
 
@@ -31,9 +30,8 @@ const actions = {
       axios
         .post(process.env.VUE_APP_API+"token/", user)
         .then((resp) => {
-          dispatch(USER_REQUEST);
-          console.log('user request dispatched');
-          console.log(resp);
+          dispatch(USER_REQUEST); // get user 
+          // console.log(resp);
           commit(SET_AUTH, resp);
           resolve(resp);
         })
@@ -48,8 +46,7 @@ const actions = {
       axios
         .post(process.env.VUE_APP_API+"token/refresh/", {refresh: JwtService.getRefreshToken()})
         .then((resp) => {
-          console.log('in auth');
-          console.log(resp);
+          // console.log(resp);
           commit(SET_AUTH, resp);
           console.log(JwtService.getAccessToken());
           console.log(JwtService.getRefreshToken());
@@ -69,12 +66,11 @@ const actions = {
 const mutations = {
   [SET_AUTH]: (state, payload, dispatch) => {
     state.isAuthenticated = true;
-    state.user = JSON.parse(atob(payload.data.access.split('.')[1]))['user_id'];
+    state.userId = JSON.parse(atob(payload.data.access.split('.')[1]))['user_id'];
     state.errors = {};
     JwtService.saveAccessToken(payload.data.access);
     JwtService.saveRefreshToken(payload.data.refresh);
-    console.log(state.user);
-    console.log(JSON.parse(atob(payload.data.access.split('.')[1]))['user_id']);
+    // console.log(state.userId);
   },
   [AUTH_ERROR]: (state, err) => {
     state.errors = err;
@@ -83,7 +79,7 @@ const mutations = {
     JwtService.destroyAccessToken();
     JwtService.destroyRefreshToken();    
     state.isAuthenticated = false;
-    state.user = null;
+    state.userId = null;
     state.errors = null;
   },
 };

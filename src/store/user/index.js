@@ -2,9 +2,8 @@ export const USER_REQUEST = "USER_REQUEST";
 export const USER_SUCCESS = "USER_SUCCESS";
 export const USER_ERROR = "USER_ERROR";
 
-import Vue from "vue";
 import { AUTH_LOGOUT } from "../auth";
-import axios from 'axios';
+import api from '@/common/api.config' // must import api config because it is only global when used with components/views
 
 
 const state = {
@@ -16,19 +15,16 @@ const getters = {
   getProfile: (s) => s.profile,
 };
 
+/* This was used for testing, for prod, may be better to send the store.auth.userId 
+returned from authentication to the server to get the complete user object */
 const actions = {
   [USER_REQUEST]: ({ dispatch, commit }) => {
-    this.$api.get(process.env.VUE_APP_API+"users/profile/")
+    api.get(process.env.VUE_APP_API+"users/profile/")
       .then((resp) => {
-        const profile = resp.data;
-        console.log(profile);
-        commit(USER_SUCCESS, {
-          username: profile.username,
-        });
+        commit(USER_SUCCESS, resp);
       })
       .catch((err) => {
-        console.log(err);
-        commit(USER_ERROR);
+        commit(USER_ERROR, err);
         dispatch(AUTH_LOGOUT);
       });
   },
@@ -39,11 +35,11 @@ const mutations = {
     s.profile = resp.data;
   },
   [USER_ERROR]: (s, err) => {
-    s.error = err.data;
+    s.errors = err;
   },
   [AUTH_LOGOUT]: (s) => {
     s.profile = {};
-    s.error = null;
+    s.errors = null;
   },
 };
 

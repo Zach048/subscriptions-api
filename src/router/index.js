@@ -1,8 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import store from '../store';
-import JwtService from "@/common/jwt.service";
-import api from '@/common/api.config'
 
 Vue.use(VueRouter)
 

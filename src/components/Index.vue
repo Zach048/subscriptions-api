@@ -12,32 +12,8 @@ import store from '../store';
 import { mapGetters } from "vuex";
 
 export default {
-    data() {
-        return {
-            subscriptions: []
-        }
-    },
-    created() {
-        this.all();
-    },
-    methods: {
-        deleteSubscription: function(subscr) {
-            if (confirm('Delete ' + subscr.name)) {
-                this.$api.delete(process.env.VUE_APP_API+'subscriptions/'+subscr.id+'/')
-                    .then( response => {
-                        this.all();
-                    });
-            }
-        },
-        all: function () {
-           this.$api.get(process.env.VUE_APP_API+'subscriptions/')
-                .then( response => {
-                    this.subscriptions = response.data
-                });
-        }
-    },
     computed: {
-      ...mapGetters(["getProfile"])
+      ...mapGetters(["getProfile"]) // user mapGetters method to use an array of all your store getters
   },
 }
 </script>

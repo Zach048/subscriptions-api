@@ -73,6 +73,7 @@ export default {
 </script>
 
 <style scoped>
+/* Template was used to test login */
 #logreg-forms{
     width:412px;
     margin:10vh auto;

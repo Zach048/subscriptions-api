@@ -5,7 +5,7 @@ import store from "./store";
 
 import api from '@/common/api.config'
 
-Vue.prototype.$api = api;
+Vue.prototype.$api = api; // use api config globally in componenets 
 
 Vue.config.productionTip = false;
 
