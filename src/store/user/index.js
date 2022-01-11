@@ -38,8 +38,8 @@ const mutations = {
   [USER_SUCCESS]: (s, resp) => {
     s.profile = resp.data;
   },
-  [USER_ERROR]: (s) => {
-    s.error = "error";
+  [USER_ERROR]: (s, err) => {
+    s.error = err.data;
   },
   [AUTH_LOGOUT]: (s) => {
     s.profile = {};
